@@ -87,14 +87,15 @@ class ModelWindow:
     BORDER_Y = 1080
 
     title: str
-    coord_left_angle: int
+    coord_left_angle_x: int
+    coord_left_angle_y: int
     size_horiz: int
     size_vert: int
     color: str
     state_viz: str
     frame: str
 
-    def __init__(self, title: str, coord_left_angle: int, size_horiz: int, size_vert: int, color: str, state_viz: str, frame: str):
+    def __init__(self, title: str, coord_left_angle_x: int, coord_left_angle_y: int, size_horiz: int, size_vert: int, color: str, state_viz: str, frame: str):
 
         if size_horiz > 1960 or size_horiz < 0:
             raise ValueError("Размер по ширине, не должен выходить за рамки 0 - 1960")
@@ -103,7 +104,8 @@ class ModelWindow:
             raise ValueError("Размер по высоте, не должен выходить за рамки 0 - 1080")
 
         self.title = title
-        self.coord_left_angle = coord_left_angle
+        self.coord_left_angle_x = coord_left_angle_x
+        self.coord_left_angle_y: coord_left_angle_y
         self.size_horiz = size_horiz
         self.size_vert = size_vert
         self.color = color
@@ -112,26 +114,40 @@ class ModelWindow:
 
     def shift_horizontal(self, param: int): # Сдвиг по горизонтали
 
-        new_cord_left = self.coord_left_angle + param
+        new_cord_left = self.coord_left_angle_x + param
 
         if new_cord_left + self.size_horiz > self.BORDER_X:
-            self.coord_left_angle = self.BORDER_X - self.size_horiz # Ставим правую границу окна вплотную к правой границе экрана (BORDER_X)
+            self.coord_left_angle_x = self.BORDER_X - self.size_horiz # Ставим правую границу окна вплотную к правой границе экрана (BORDER_X)
 
             return f"Достигнута правая граница экрана {self.BORDER_X}"
 
         elif new_cord_left + self.size_horiz < self.BORDER_X:
-            self.coord_left_angle = new_cord_left
+            self.coord_left_angle_x = new_cord_left
 
         elif (new_cord_left + self.size_horiz) < 0:
-            self.coord_left_angle = 0
+            self.coord_left_angle_x = 0
 
             return f"Достигнута левая граница экрана {self.BORDER_X}"
 
 
+    def shift_vertical(self, param: int): # Сдвиг по вертикали
 
-    def shift_vertical(self): # Сдвиг по вертикали
-        pass
+        new_cord_left = self.coord_left_angle_y + param
 
+        if new_cord_left + self.size_vert > self.BORDER_Y:
+            self.coord_left_angle_y = self.BORDER_Y - self.size_vert # Ставим верхнюю границу окна к верхней границе экрана (BORDER_Y)
+
+            return f"Достигнута верхняя граница экрана {self.BORDER_Y}"
+
+        elif new_cord_left + self.size_vert < self.BORDER_Y:
+            self.coord_left_angle_y = new_cord_left
+
+        elif (new_cord_left + self.size_vert) < 0:
+            self.coord_left_angle_y = self.size_vert
+
+            return f"Достигнута нижняя граница экрана {self.BORDER_Y}"
+
+            
     def change_height(self): # Изменение ширины окна
         pass
 
