@@ -13,14 +13,14 @@ class Patient:
 
     def __init__(self, fio: str, age: int, disease: str, data: int, time: int):
 
+        if not isinstance(age, int):
+            raise ValueError("Введите число")
+
         self.fio = fio
         self.age = age
         self.disease = disease
         self.data = data
         self.time = time
-
-        if not isinstance(age, int):
-            raise ValueError("Введите число")
 
     def data(day: int, month: str, year: int):
 
@@ -66,4 +66,69 @@ print(p2.visit_doctor())
 print(p2)
 
 
+# Задача №3.
+# Создайте класс ModelWindow для работы с моделями экранных окон. В качестве полей задаются:
+# заголовок окна, координаты левого верхнего угла, размер по горизонтали, размер по вертикали, цвет окна,
+# состояние “видимое/невидимое”, состояние “с рамкой/без рамки”.
+# Координаты и размеры указываются в целых числах.
+# Реализовать операции:
+# передвижения окна по горизонтали, по вертикали;
+# изменение высота и/или ширины окна;
+# изменение цвет окна;
+# изменение состояния;
+# опрос состояния.
+# Операции передвижения и изменения размера должны осуществлять проверку на пересечение границ экрана.
+# Границы экрана принять 1960х1080.
+# Операция вывода на экран (__str__) должна аккумулировать состояние полей объекта.
 
+class ModelWindow:
+
+    BORDER_X = 1960
+    BORDER_Y = 1080
+
+    title: str
+    coord_left_angle: int
+    size_horiz: int
+    size_vert: int
+    color: str
+    state_viz: str
+    frame: str
+
+    def __init__(self, title: str, coord_left_angle: int, size_horiz: int, size_vert: int, color: str, state_viz: str, frame: str):
+
+        if size_horiz > 1960 or size_horiz < 1:
+            raise ValueError("Размер по ширине, не должен выходить за рамки 1 - 1960")
+
+        if size_vert > 1080 or size_vert < 1:
+            raise ValueError("Размер по высоте, не должен выходить за рамки 1 - 1080")
+
+        self.title = title
+        self.coord_left_angle = coord_left_angle
+        self.size_horiz = size_horiz
+        self.size_vert = size_vert
+        self.color = color
+        self.state_viz = state_viz
+        self.frame = frame
+
+    def shift_horizontal(self): # Сдвиг по горизонтали
+        pass
+
+    def shift_vertical(self): # Сдвиг по вертикали
+        pass
+
+    def change_height(self): # Изменение ширины окна
+        pass
+
+    def change_width(self): # Изменение высоты окна
+        pass
+
+    def set_change_color(self): # Изменение цвета окна
+        pass
+
+    def set_change_state(self): # Изменение состояния (видимое/не видимое) окна
+        pass
+
+    def get_state(self): # Опрос состояния
+        pass
+
+    def __str__(self):
