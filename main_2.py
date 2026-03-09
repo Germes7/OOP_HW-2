@@ -168,8 +168,20 @@ class ModelWindow:
         else:  # На случай введения отрицательного значения в param, т.е. уменьшаем ширину окна
             self.size_horiz = new_height
 
-    def change_width(self):  # Изменение высоты окна
-        pass
+    def set_change_width(self, param: int):  # Изменение высоты окна
+
+        new_width = self.size_vert + param
+
+        if new_width > self.BORDER_Y:
+            self.size_vert = self.BORDER_Y
+
+            return f"Высота окна равна высоте экрана {self.BORDER_Y}"
+
+        elif new_width < 0:  # Оставляем высоту окна без изменения
+            self.size_vert = self.size_vert
+
+        else:  # На случай введения отрицательного значения в param, т.е. уменьшаем высоту окна
+            self.size_vert = new_width
 
     def set_change_color(self):  # Изменение цвета окна
         pass
