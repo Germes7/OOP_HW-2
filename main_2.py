@@ -183,8 +183,17 @@ class ModelWindow:
         else:  # На случай введения отрицательного значения в param, т.е. уменьшаем высоту окна
             self.size_vert = new_width
 
-    def set_change_color(self):  # Изменение цвета окна
-        pass
+    def set_change_color(self, new_color: str):  # Изменение цвета окна
+
+        if not isinstance(new_color, str):
+            raise ValueError("Введена не строка")
+
+        if new_color == self.color:
+            return f"Окно уже в данном цвете {self.color}"
+
+        else:
+            self.color = new_color
+            return f"Окно перекрашено в цвет {new_color}"
 
     def set_change_state(self):  # Изменение состояния (видимое/не видимое) окна
         pass
