@@ -66,6 +66,7 @@ p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашел
 print(p2.visit_doctor())
 print(p2)
 
+print("-----------------------------------------------------------------------------------------------------\n")
 
 # Задача №3.
 # Создайте класс ModelWindow для работы с моделями экранных окон. В качестве полей задаются:
@@ -112,7 +113,7 @@ class ModelWindow:
 
         self.title = title
         self.coord_left_angle_x = coord_left_angle_x
-        self.coord_left_angle_y: coord_left_angle_y
+        self.coord_left_angle_y = coord_left_angle_y
         self.size_horiz = size_horiz
         self.size_vert = size_vert
         self.color = color
@@ -126,15 +127,17 @@ class ModelWindow:
         if new_cord_left + self.size_horiz > self.BORDER_X:
             self.coord_left_angle_x = self.BORDER_X - self.size_horiz  # Ставим правую границу окна вплотную к правой границе экрана (BORDER_X)
 
-            return f"Достигнута правая граница экрана {self.BORDER_X}"
+            return f"Достигнута правая граница экрана {self.BORDER_X}. Положение координаты верхнего левого угла (по горизонтали): {self.coord_left_angle_x}"
 
-        elif new_cord_left + self.size_horiz < self.BORDER_X:
+        elif new_cord_left + self.size_horiz < self.BORDER_X and new_cord_left + self.size_horiz > 0:
             self.coord_left_angle_x = new_cord_left
+
+            return f"Положение окна сдвинуто вправо. Положение координаты верхнего левого угла (по горизонтали): {self.coord_left_angle_x}"
 
         elif (new_cord_left + self.size_horiz) < 0:
             self.coord_left_angle_x = 0
 
-            return f"Достигнута левая граница экрана {self.BORDER_X}"
+            return f"Достигнута левая граница экрана {self.BORDER_X}. Положение координаты верхнего левого угла (по горизонтали): {self.coord_left_angle_x}"
 
     def shift_vertical(self, param: int):  # Сдвиг по вертикали
 
@@ -143,15 +146,17 @@ class ModelWindow:
         if new_cord_left + self.size_vert > self.BORDER_Y:
             self.coord_left_angle_y = self.BORDER_Y - self.size_vert  # Ставим верхнюю границу окна к верхней границе экрана (BORDER_Y)
 
-            return f"Достигнута верхняя граница экрана {self.BORDER_Y}"
+            return f"Достигнута верхняя граница экрана {self.BORDER_Y}. Положение координаты верхнего левого угла (по вертикали) {self.coord_left_angle_y}"
 
-        elif new_cord_left + self.size_vert < self.BORDER_Y:
+        elif (new_cord_left + self.size_vert) < self.BORDER_Y and (new_cord_left + self.size_vert) > 0:
             self.coord_left_angle_y = new_cord_left
+
+            return f"Положение окна сдвинуто вверх. Положение координаты верхнего левого угла (по вертикали) {self.coord_left_angle_y}"
 
         elif (new_cord_left + self.size_vert) < 0:
             self.coord_left_angle_y = self.size_vert
 
-            return f"Достигнута нижняя граница экрана {self.BORDER_Y}"
+            return f"Достигнута нижняя граница экрана {self.BORDER_Y}. Положение координаты верхнего левого угла (по вертикали): {self.coord_left_angle_y}"
 
     def set_change_height(self, param: int):  # Изменение ширины окна
 
@@ -160,13 +165,24 @@ class ModelWindow:
         if new_height > self.BORDER_X:
             self.size_horiz = self.BORDER_X
 
-            return f"Ширина окна равна ширине экрана {self.BORDER_X}"
+            return f"Ширина окна равна ширине экрана {self.BORDER_X} мм."
 
         elif new_height < 0:  # Оставляем ширину окна без изменения
             self.size_horiz = self.size_horiz
 
-        else:  # На случай введения отрицательного значения в param, т.е. уменьшаем ширину окна
-            self.size_horiz = new_height
+            return f"Ширина окна, осталась без изменения {self.size_horiz} мм."
+
+        elif new_height < self.BORDER_X and new_height > 0:
+
+            if new_height > self.size_horiz:
+                self.size_horiz = new_height
+
+                return f"Ширина окна увеличилась, стала равной: {self.size_horiz} мм."
+
+            else:
+                self.size_horiz = new_height
+
+                return f"Ширина окна уменьшилась, стала равной: {self.size_horiz} мм."
 
     def set_change_width(self, param: int):  # Изменение высоты окна
 
@@ -175,13 +191,24 @@ class ModelWindow:
         if new_width > self.BORDER_Y:
             self.size_vert = self.BORDER_Y
 
-            return f"Высота окна равна высоте экрана {self.BORDER_Y}"
+            return f"Высота окна равна высоте экрана {self.BORDER_Y} мм."
 
-        elif new_width < 0:  # Оставляем высоту окна без изменения
+        elif new_width < 0:  # Оставляем высоту окна без изменения, на случай введения отрицат. значений
             self.size_vert = self.size_vert
 
-        else:  # На случай введения отрицательного значения в param, т.е. уменьшаем высоту окна
-            self.size_vert = new_width
+            return f"Высота окна, осталась без изменения {self.size_vert} мм."
+
+        elif new_width < self.BORDER_Y and new_width > 0:
+
+            if new_width > self.size_vert:
+                self.size_vert = new_width
+
+                return f"Высота окна увеличилась, стала равной: {self.size_vert} мм."
+
+            else:
+                self.size_vert = new_width
+
+                return f"Высота окна уменьшилась, стала равной: {self.size_vert} мм."
 
     def set_change_color(self, new_color: str):  # Изменение цвета окна
 
@@ -189,17 +216,73 @@ class ModelWindow:
             raise ValueError("Введена не строка")
 
         if new_color == self.color:
-            return f"Окно уже в данном цвете {self.color}"
+            return f"Окно уже в данном цвете: {self.color}"
 
         else:
             self.color = new_color
-            return f"Окно перекрашено в цвет {new_color}"
 
-    def set_change_state(self):  # Изменение состояния (видимое/не видимое) окна
-        pass
+            return f"Окно перекрашено в цвет: {new_color}"
 
-    def get_state(self):  # Опрос состояния
-        pass
+    def set_change_state(self, param: str):  # Изменение состояния (видимое/не видимое) окна
+
+        new_state = "Не видимое"
+
+        if self.state_viz.capitalize() == param.capitalize():
+
+            return f"Окно: {self.state_viz}"
+
+        else:
+            self.state_viz = new_state
+
+            return f"Окно: {self.state_viz}"
+
+    def set_change_frame(self, parm: str):  # Изменение состояния окна (с рамкой/без рамки)
+
+        frame_lower = parm.lower()
+        frames = ["с рамкой", "без рамки"]
+
+        if frame_lower not in frames:
+
+            return f"Недопустимое значение для рамки: '{parm}'. Допустимые значения: 'с рамкой', 'без рамки'."
+
+        if self.frame.lower() == frame_lower:
+
+                return f"Рамка уже установлена: {self.frame.capitalize()}"
+
+        else:
+            self.frame = frame_lower.capitalize()
+
+            return f"Рамка окна изменена на: {self.frame}"
+
+    def get_state(self):  # Опрос состояния.
+
+        return f"Вид окна: {self.state_viz}. {self.frame}."
 
     def __str__(self):
-        pass
+
+        return f"""Создано окно. Название окна: '{self.title}';
+Положение координаты верхнего левого угла (по Абсцисе X): {self.coord_left_angle_x};
+Положение координаты верхнего левого угла (по Ординате Y): {self.coord_left_angle_y};
+Ширина окна: {self.size_horiz} мм; Высота окна: {self.size_vert} мм;
+Цвет окна: {self.color}; Состояние: {self.state_viz}; Наличие рамки: {self.frame}"""
+
+wind = ModelWindow("Новое", 100, 120, 800, 780, "синее", "Видимое", "без рамки")
+print(wind)
+horizont = wind.shift_horizontal(-2120)
+print(horizont)
+vertical = wind.shift_vertical(-3520)
+print(vertical)
+size_h = wind.set_change_height(127)
+print(size_h)
+size_v = wind.set_change_width(365)
+print(size_v)
+color = wind.set_change_color("красное")
+print(color)
+state = wind.set_change_state("не видимое")
+print(state)
+frame = wind.set_change_frame("С рамкой")
+print(frame)
+get = wind.get_state()
+print(get)
+
+
