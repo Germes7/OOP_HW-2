@@ -8,10 +8,10 @@ class Patient:
     fio: str
     age: int
     disease: str
-    data: int
-    time: int
+    data: str
+    time: str
 
-    def __init__(self, fio: str, age: int, disease: str, data: int, time: int):
+    def __init__(self, fio: str, age: int, disease: str, data: str, time: str):
 
         if not isinstance(age, int):
             raise ValueError("Введите число")
@@ -22,6 +22,7 @@ class Patient:
         self.data = data
         self.time = time
 
+    @staticmethod
     def data(day: int, month: str, year: int):
 
         if not isinstance(day, int) or (day < 1 or day > 31):
@@ -32,6 +33,7 @@ class Patient:
 
         return f"{day} {month} {year}"
 
+    @staticmethod
     def time(hour: int, min: int):
 
         if not isinstance(hour, int) or (hour < 0 or hour > 23):
@@ -42,8 +44,7 @@ class Patient:
 
         return f"{hour}:{min}"
 
-
-    def visit_doctor(self): # Метод записи к врачу
+    def visit_doctor(self):  # Метод записи к врачу
 
         return f"Пациент записан на прием, на {self.data} в {self.time}"
 
@@ -59,7 +60,7 @@ p1 = Patient("Иванов Сергей Львович", 48, "Температу
 print(p1.visit_doctor())
 print(p1)
 print()
-data2 =Patient.data(19, "января", 2029)
+data2 = Patient.data(19, "января", 2029)
 time2 = Patient.time(12, 25)
 p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
 print(p2.visit_doctor())
@@ -103,6 +104,12 @@ class ModelWindow:
         if size_vert > 1080 or size_vert < 0:
             raise ValueError("Размер по высоте, не должен выходить за рамки 0 - 1080")
 
+        if coord_left_angle_x > 1960 or coord_left_angle_x < 0:
+            raise ValueError("Точка верхнего лев. угла окна, не должен выходить за рамки 0 - 1960")
+
+        if coord_left_angle_y > 1080 or coord_left_angle_y < 0:
+            raise ValueError("Точка верхнего лев. угла окна, не должен выходить за рамки 0 - 1080")
+
         self.title = title
         self.coord_left_angle_x = coord_left_angle_x
         self.coord_left_angle_y: coord_left_angle_y
@@ -112,12 +119,12 @@ class ModelWindow:
         self.state_viz = state_viz
         self.frame = frame
 
-    def shift_horizontal(self, param: int): # Сдвиг по горизонтали
+    def shift_horizontal(self, param: int):  # Сдвиг по горизонтали
 
         new_cord_left = self.coord_left_angle_x + param
 
         if new_cord_left + self.size_horiz > self.BORDER_X:
-            self.coord_left_angle_x = self.BORDER_X - self.size_horiz # Ставим правую границу окна вплотную к правой границе экрана (BORDER_X)
+            self.coord_left_angle_x = self.BORDER_X - self.size_horiz  # Ставим правую границу окна вплотную к правой границе экрана (BORDER_X)
 
             return f"Достигнута правая граница экрана {self.BORDER_X}"
 
@@ -129,13 +136,12 @@ class ModelWindow:
 
             return f"Достигнута левая граница экрана {self.BORDER_X}"
 
-
-    def shift_vertical(self, param: int): # Сдвиг по вертикали
+    def shift_vertical(self, param: int):  # Сдвиг по вертикали
 
         new_cord_left = self.coord_left_angle_y + param
 
         if new_cord_left + self.size_vert > self.BORDER_Y:
-            self.coord_left_angle_y = self.BORDER_Y - self.size_vert # Ставим верхнюю границу окна к верхней границе экрана (BORDER_Y)
+            self.coord_left_angle_y = self.BORDER_Y - self.size_vert  # Ставим верхнюю границу окна к верхней границе экрана (BORDER_Y)
 
             return f"Достигнута верхняя граница экрана {self.BORDER_Y}"
 
@@ -147,20 +153,31 @@ class ModelWindow:
 
             return f"Достигнута нижняя граница экрана {self.BORDER_Y}"
 
-            
-    def change_height(self): # Изменение ширины окна
+    def set_change_height(self, param: int):  # Изменение ширины окна
+
+        new_height = self.size_horiz + param
+
+        if new_height > self.BORDER_X:
+            self.size_horiz = self.BORDER_X
+
+            return f"Ширина окна равна ширине экрана {self.BORDER_X}"
+
+        elif new_height < 0:  # Оставляем ширину окна без изменения
+            self.size_horiz = self.size_horiz
+
+        else:  # На случай введения отрицательного значения в param, т.е. уменьшаем ширину окна
+            self.size_horiz = new_height
+
+    def change_width(self):  # Изменение высоты окна
         pass
 
-    def change_width(self): # Изменение высоты окна
+    def set_change_color(self):  # Изменение цвета окна
         pass
 
-    def set_change_color(self): # Изменение цвета окна
+    def set_change_state(self):  # Изменение состояния (видимое/не видимое) окна
         pass
 
-    def set_change_state(self): # Изменение состояния (видимое/не видимое) окна
-        pass
-
-    def get_state(self): # Опрос состояния
+    def get_state(self):  # Опрос состояния
         pass
 
     def __str__(self):
