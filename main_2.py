@@ -54,19 +54,19 @@ class Patient:
 Записан на прием к врачу, на дату: {self.data} г. в {self.time};"""
 
 
-# data1 = Patient.data(17, "ноября", 2026)
-# time1 = Patient.time(13, 20)
-# p1 = Patient("Иванов Сергей Львович", 48, "Температура", data1, time1)
-# print(p1.visit_doctor())
-# print(p1)
-# print()
-# data2 = Patient.data(19, "января", 2029)
-# time2 = Patient.time(12, 25)
-# p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
-# print(p2.visit_doctor())
-# print(p2)
-#
-# print("-----------------------------------------------------------------------------------------------------\n")
+data1 = Patient.data(17, "ноября", 2026)
+time1 = Patient.time(13, 20)
+p1 = Patient("Иванов Сергей Львович", 48, "Температура", data1, time1)
+print(p1.visit_doctor())
+print(p1)
+print()
+data2 = Patient.data(19, "января", 2029)
+time2 = Patient.time(12, 25)
+p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
+print(p2.visit_doctor())
+print(p2)
+
+print("-----------------------------------------------------------------------------------------------------")
 
 # Задача №3.
 # Создайте класс ModelWindow для работы с моделями экранных окон. В качестве полей задаются:
@@ -97,7 +97,8 @@ class ModelWindow:
     state_viz: str
     frame: str
 
-    def __init__(self, title: str, coord_left_angle_x: int, coord_left_angle_y: int, size_horiz: int, size_vert: int, color: str, state_viz: str, frame: str):
+    def __init__(self, title: str, coord_left_angle_x: int, coord_left_angle_y: int, size_horiz: int, size_vert: int,
+                 color: str, state_viz: str, frame: str):
 
         if size_horiz > self.BORDER_Y or size_horiz < 0:
             raise ValueError("Размер по ширине, не должен выходить за рамки 0 - 1960")
@@ -266,25 +267,25 @@ class ModelWindow:
 Ширина окна: {self.size_horiz} мм; Высота окна: {self.size_vert} мм;
 Цвет окна: {self.color}; Состояние: {self.state_viz}; Наличие рамки: {self.frame}"""
 
-# wind = ModelWindow("Новое", 100, 120, 800, 780, "синее", "Видимое", "без рамки")
-# print(wind)
-# horizont = wind.shift_horizontal(-2120)
-# print(horizont)
-# vertical = wind.shift_vertical(-3520)
-# print(vertical)
-# size_h = wind.set_change_height(127)
-# print(size_h)
-# size_v = wind.set_change_width(365)
-# print(size_v)
-# color = wind.set_change_color("красное")
-# print(color)
-# state = wind.set_change_state("не видимое")
-# print(state)
-# frame = wind.set_change_frame("С рамкой")
-# print(frame)
-# get = wind.get_state()
-# print(get)
-
+wind = ModelWindow("Новое",100,120, 800,780,"синее","Видимое","без рамки")
+print(wind)
+horizont = wind.shift_horizontal(-2120)
+print(horizont)
+vertical = wind.shift_vertical(-3520)
+print(vertical)
+size_h = wind.set_change_height(127)
+print(size_h)
+size_v = wind.set_change_width(365)
+print(size_v)
+color = wind.set_change_color("красное")
+print(color)
+state = wind.set_change_state("не видимое")
+print(state)
+frame = wind.set_change_frame("С рамкой")
+print(frame)
+get = wind.get_state()
+print(get)
+print("-----------------------------------------------------------------------------------------------------")
 
 # Задача №4.
 # Создайте класс ArrayUtils, который будет содержать статические методы для выполнения различных операций над массивами
@@ -309,11 +310,8 @@ class ModelWindow:
 
 class ArrayUtils:
 
-    def __init__(self):
-        return
-
     @staticmethod
-    def sun_elem_array(array: list[float]) -> float:
+    def sum_elem_array(array: list[float]) -> float:
 
         if len(array) > 0:
 
@@ -362,12 +360,23 @@ class ArrayUtils:
 
         return 0.0
 
-
     @staticmethod
     def min_elem_array(array: list[float]) -> float:
-        pass
 
-print(ArrayUtils.sun_elem_array([0, 7, -2, 4]))
+        if len(array) > 0:
+
+            min_elem = array[0]
+            for i in array:
+
+                if i < min_elem:
+                    min_elem = i
+
+            return min_elem
+
+        return 0.0
+
+print(ArrayUtils.sum_elem_array([0, 7, -2, 4]))
 print(ArrayUtils.mult_elem_array([-5, 4, -25]))
-print(ArrayUtils.revers_array([1, 2, 5, 7, 11]))
+print(ArrayUtils.revers_array([5]))
 print(ArrayUtils.max_elem_array([3, -5, -7, 0, -1]))
+print(ArrayUtils.min_elem_array([2, -5, 0, 4]))
