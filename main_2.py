@@ -316,7 +316,7 @@ class ArrayUtils:
     def sun_elem_array(array: list[float]) -> float:
 
         sum = 0
-        if array != 0 and len(array) > 0:
+        if len(array) > 0:
 
             for i in array:
                 sum += i
@@ -329,7 +329,7 @@ class ArrayUtils:
     def mult_elem_array(array: list[float]) -> float:
 
         multy = 1
-        if array != 0 and len(array) > 0:
+        if len(array) > 0:
 
             for i in array:
                 multy *= i
@@ -339,8 +339,13 @@ class ArrayUtils:
         return 0
 
     @staticmethod
-    def revers_array(array: list[float]) -> list[float]:
-        pass
+    def revers_array(array: list[float]) -> list[float] | int:
+
+        if len(array) > 0:
+
+            return array[::-1]
+
+        return 0
 
     @staticmethod
     def max_elem_array(array: list[float]) -> float:
@@ -350,5 +355,6 @@ class ArrayUtils:
     def min_elem_array(array: list[float]) -> float:
         pass
 
-print(ArrayUtils.sun_elem_array([2]))
-print(ArrayUtils.mult_elem_array([-5, 2, -3]))
+print(ArrayUtils.sun_elem_array([0, 7, -2, 4]))
+print(ArrayUtils.mult_elem_array([-5, 4, -25]))
+print(ArrayUtils.revers_array([1, 2, 5, 7, 11]))
