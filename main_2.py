@@ -54,19 +54,19 @@ class Patient:
 Записан на прием к врачу, на дату: {self.data} г. в {self.time};"""
 
 
-data1 = Patient.data(17, "ноября", 2026)
-time1 = Patient.time(13, 20)
-p1 = Patient("Иванов Сергей Львович", 48, "Температура", data1, time1)
-print(p1.visit_doctor())
-print(p1)
-print()
-data2 = Patient.data(19, "января", 2029)
-time2 = Patient.time(12, 25)
-p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
-print(p2.visit_doctor())
-print(p2)
-
-print("-----------------------------------------------------------------------------------------------------\n")
+# data1 = Patient.data(17, "ноября", 2026)
+# time1 = Patient.time(13, 20)
+# p1 = Patient("Иванов Сергей Львович", 48, "Температура", data1, time1)
+# print(p1.visit_doctor())
+# print(p1)
+# print()
+# data2 = Patient.data(19, "января", 2029)
+# time2 = Patient.time(12, 25)
+# p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
+# print(p2.visit_doctor())
+# print(p2)
+#
+# print("-----------------------------------------------------------------------------------------------------\n")
 
 # Задача №3.
 # Создайте класс ModelWindow для работы с моделями экранных окон. В качестве полей задаются:
@@ -99,16 +99,16 @@ class ModelWindow:
 
     def __init__(self, title: str, coord_left_angle_x: int, coord_left_angle_y: int, size_horiz: int, size_vert: int, color: str, state_viz: str, frame: str):
 
-        if size_horiz > 1960 or size_horiz < 0:
+        if size_horiz > self.BORDER_Y or size_horiz < 0:
             raise ValueError("Размер по ширине, не должен выходить за рамки 0 - 1960")
 
-        if size_vert > 1080 or size_vert < 0:
+        if size_vert > self.BORDER_Y or size_vert < 0:
             raise ValueError("Размер по высоте, не должен выходить за рамки 0 - 1080")
 
-        if coord_left_angle_x > 1960 or coord_left_angle_x < 0:
+        if coord_left_angle_x > self.BORDER_Y or coord_left_angle_x < 0:
             raise ValueError("Точка верхнего лев. угла окна, не должен выходить за рамки 0 - 1960")
 
-        if coord_left_angle_y > 1080 or coord_left_angle_y < 0:
+        if coord_left_angle_y > self.BORDER_Y or coord_left_angle_y < 0:
             raise ValueError("Точка верхнего лев. угла окна, не должен выходить за рамки 0 - 1080")
 
         self.title = title
@@ -266,24 +266,24 @@ class ModelWindow:
 Ширина окна: {self.size_horiz} мм; Высота окна: {self.size_vert} мм;
 Цвет окна: {self.color}; Состояние: {self.state_viz}; Наличие рамки: {self.frame}"""
 
-wind = ModelWindow("Новое", 100, 120, 800, 780, "синее", "Видимое", "без рамки")
-print(wind)
-horizont = wind.shift_horizontal(-2120)
-print(horizont)
-vertical = wind.shift_vertical(-3520)
-print(vertical)
-size_h = wind.set_change_height(127)
-print(size_h)
-size_v = wind.set_change_width(365)
-print(size_v)
-color = wind.set_change_color("красное")
-print(color)
-state = wind.set_change_state("не видимое")
-print(state)
-frame = wind.set_change_frame("С рамкой")
-print(frame)
-get = wind.get_state()
-print(get)
+# wind = ModelWindow("Новое", 100, 120, 800, 780, "синее", "Видимое", "без рамки")
+# print(wind)
+# horizont = wind.shift_horizontal(-2120)
+# print(horizont)
+# vertical = wind.shift_vertical(-3520)
+# print(vertical)
+# size_h = wind.set_change_height(127)
+# print(size_h)
+# size_v = wind.set_change_width(365)
+# print(size_v)
+# color = wind.set_change_color("красное")
+# print(color)
+# state = wind.set_change_state("не видимое")
+# print(state)
+# frame = wind.set_change_frame("С рамкой")
+# print(frame)
+# get = wind.get_state()
+# print(get)
 
 
 # Задача №4.
@@ -313,10 +313,10 @@ class ArrayUtils:
         return
 
     @staticmethod
-    def sun_elem_array(array: list[float]):
+    def sun_elem_array(array: list[float]) -> float:
 
         sum = 0
-        if array != 0:
+        if array != 0 and len(array) > 0:
 
             for i in array:
                 sum += i
@@ -326,17 +326,29 @@ class ArrayUtils:
         return 0
 
     @staticmethod
-    def mult_elem_array(array: list[float]):
+    def mult_elem_array(array: list[float]) -> float:
+
+        multy = 1
+        if array != 0 and len(array) > 0:
+
+            for i in array:
+                multy *= i
+
+            return multy
+
+        return 0
+
+    @staticmethod
+    def revers_array(array: list[float]) -> list[float]:
         pass
 
     @staticmethod
-    def revers_array(array: list[float]):
+    def max_elem_array(array: list[float]) -> float:
         pass
 
     @staticmethod
-    def max_elem_array(array: list[float]):
+    def min_elem_array(array: list[float]) -> float:
         pass
 
-    @staticmethod
-    def min_elem_array(array: list[float]):
-        pass
+print(ArrayUtils.sun_elem_array([2]))
+print(ArrayUtils.mult_elem_array([-5, 2, -3]))
