@@ -52,7 +52,7 @@ class Patient:
 
         return f"""Пациент: {self.fio}, возраст {self.age} лет. Заболевание: {self.disease}.
 Записан на прием к врачу, на дату: {self.data} г. в {self.time};"""
-
+    
 
 data1 = Patient.data(17, "ноября", 2026)
 time1 = Patient.time(13, 20)
@@ -65,7 +65,6 @@ time2 = Patient.time(12, 25)
 p2 = Patient("Коблак Виктория Сергеевна", 18, "Кашель", data2, time2)
 print(p2.visit_doctor())
 print(p2)
-
 print("-----------------------------------------------------------------------------------------------------")
 
 # Задача №3.
@@ -380,3 +379,48 @@ print(ArrayUtils.mult_elem_array([-5, 4, -25]))
 print(ArrayUtils.revers_array([5]))
 print(ArrayUtils.max_elem_array([3, -5, -7, 0, -1]))
 print(ArrayUtils.min_elem_array([2, -5, 0, 4]))
+print("-----------------------------------------------------------------------------------------------------")
+
+# Задача №6.
+# Создайте класс Fraction для работы с дробями. Класс должен включать поля:
+# числитель и знаменатель, оба целочисленные значения. Реализуйте методы для сложения, вычитания и умножения дробей.
+# Перегрузите соответствующие операторы (+, -, *) для реализации этих операций. Каждая операция должна
+# возвращать новый объект класса Fraction, представляющий результат. Добавьте методы проверки на знаменатель равный
+# нулю перед выполнением операций.
+# Операция вывода на экран ( __str__ ) должна отображать дробь в формате"числитель/знаменатель" или "целое число",
+# если знаменатель равен 1.
+
+class Fraction:
+
+    numerator: int
+    denominator: int
+
+    def __init__(self, numerator: int, denominator: int):
+
+        if denominator == 0:
+            raise ValueError("Знаменатель не может быть равен нулю")
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def __add__(self, other):
+
+        new_num = self.numerator * other.denominator + other.numerator * self.denominator
+        new_den = self.denominator * other.denominator
+
+        return Fraction(new_num, new_den)
+
+    def __str__(self):
+
+        if self.denominator == 1:
+
+            return f"{self.numerator}"
+
+        else:
+
+            return f"{self.numerator}/{self.denominator}"
+
+f1 = Fraction(5, 12)
+print(f1)
+f2 = Fraction(4, 17)
+print(f2)
+print(f1 + f2)
