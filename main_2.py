@@ -416,6 +416,13 @@ class Fraction:
 
         return Fraction(new_num, new_den)
 
+    def __mul__(self, other):
+
+        new_num = self.numerator * other.numerator
+        new_den = self.denominator * other.denominator
+
+        return Fraction(new_num, new_den)
+
     def __str__(self):
 
         if self.denominator == 1:
@@ -437,3 +444,9 @@ print(f3)
 f4 = Fraction(3, 11)
 print(f4)
 print(f3 - f4)
+print("-----------")
+f5 = Fraction(3, 4)
+print(f5)
+f6 = Fraction(7, 12)
+print(f6)
+print(f5 * f6)
