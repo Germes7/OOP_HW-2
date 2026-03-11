@@ -52,7 +52,7 @@ class Patient:
 
         return f"""Пациент: {self.fio}, возраст {self.age} лет. Заболевание: {self.disease}.
 Записан на прием к врачу, на дату: {self.data} г. в {self.time};"""
-    
+
 
 data1 = Patient.data(17, "ноября", 2026)
 time1 = Patient.time(13, 20)
@@ -409,6 +409,13 @@ class Fraction:
 
         return Fraction(new_num, new_den)
 
+    def __sub__(self, other):
+
+        new_den = self.denominator * other.denominator
+        new_num = other.denominator * self.numerator - self.denominator * other.numerator
+
+        return Fraction(new_num, new_den)
+
     def __str__(self):
 
         if self.denominator == 1:
@@ -424,3 +431,9 @@ print(f1)
 f2 = Fraction(4, 17)
 print(f2)
 print(f1 + f2)
+print("-----------")
+f3 = Fraction(15, 12)
+print(f3)
+f4 = Fraction(3, 11)
+print(f4)
+print(f3 - f4)
